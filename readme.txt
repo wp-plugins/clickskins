@@ -34,15 +34,18 @@ This section describes how to install the plugin and get it working.
 1. Unzip (if it is zipped) and Upload `clickskin` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
+== Screenshots ==
+
+1. Create New ad section.
 
 
 == Changelog ==
 
-= 1.0.0 - 2015-3-11 =
+= 1.0.0 - 2015-01-01 =
 * Initial Release.
 
 == Donation ==
 
 You may buy the premium version to support the development.
 
-http://clickskins.com/
+hhttp://clickskins.com/
