@@ -38,11 +38,11 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
-= 1.0.0 - 2015-01-01 =
+= 1.0.0 - 2015-3-11 =
 * Initial Release.
 
 == Donation ==
 
 You may buy the premium version to support the development.
 
-hhttp://clickskins.com/
+http://clickskins.com/
