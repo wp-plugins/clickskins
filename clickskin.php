@@ -6,7 +6,7 @@ Plugin Name: Click skins
 
 Plugin URI: http://reavey.com
 
-description: clicks SkinAds – website enhancements and an alternatve to banner ads
+description: Clicks Skin Ads – website enhancements and an alternatve to banner ads
 
 Version: 1.0
 
