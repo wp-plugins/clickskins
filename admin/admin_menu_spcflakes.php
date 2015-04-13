@@ -244,6 +244,34 @@ class SpcSampleData extends SnapycodeFlake
                                     
                                 </div>
                                 
+                                <div class="postarea">                  
+                                    <label for="flake_active_page"  class="spc_label"> Active Page/Post </label>
+                                    <select name="flake_active_page" id="flake_active_page" tabindex="6">
+                                    <option value="0">All Pages</option>
+                                    <?php
+                                    $pages = get_pages(); 
+									  foreach ( $pages as $page ) {
+										$option = '<option ';
+										if( isset($row->flake_active_page) && ($row->flake_active_page==$page->ID) ){
+											$option .= 'selected="selected"';
+										}
+										$option .= ' value="' .  $page->ID  . '">';
+										$option .= $page->post_title;
+										$option .= '</option>';
+										echo $option;
+									  } 
+									  
+									 global $post;
+									 $args = array( 'numberposts' => -1);
+									 $posts = get_posts($args);
+									 foreach( $posts as $post ) : setup_postdata($post); ?>
+										<option <?php if( isset($row->flake_active_page) && ($row->flake_active_page==$post->ID) ) echo 'selected="selected"'; ?> 
+                                        value="<?php echo $post->ID; ?>"><?php the_title(); ?></option>
+									 <?php endforeach; ?>  
+									
+                                    </select>
+                                </div>
+                                
                             </div><!-- Form Elements End-->
                             
                             <div class="spc-infos spc-float-right"><!-- Information Element -->
@@ -329,14 +357,14 @@ class SpcSampleData extends SnapycodeFlake
                                        </div>
                                        
                                        <div class="postarea">                   
-                                            <label for="flake_width"  class="spc_label_2"> Width <br/><small>Ex - 4px or 50%</small></label>
+                                            <label for="flake_width"  class="spc_label_2"> Width <br/><small>Ex - 200 (px)</small></label>
                                             <input type="text" id="flake_width" class="spc-width50 medium-text" name="flake_width" 
                                             value="<?php if( isset($row->flake_width) ){ echo $row->flake_width; }?>" tabindex="1" >
                                             
                                        </div>
                                        
                                        <div class="postarea">                   
-                                            <label for="flake_height"  class="spc_label_2"> Height <br/><small>Ex - 4px or 50%</small></label>
+                                            <label for="flake_height"  class="spc_label_2"> Height <br/><small>Ex - 200 (px) / auto</small></label>
                                             <input type="text" id="flake_height" class="spc-width50 medium-text" name="flake_height" 
                                             value="<?php if( isset($row->flake_height) ){ echo $row->flake_height; }?>" tabindex="1" >
                                             
@@ -394,11 +422,16 @@ class SpcSampleData extends SnapycodeFlake
         if( '' == trim($flake_mode) ){ $flake_mode = 'image';}
         if( '' == trim($flake_opacity) ){ $flake_opacity = 1;}
         if( '' == trim($flake_color) ){ $flake_color = '#000';}
-        if( '' == trim($flake_width) ){ $flake_width = '100px';}
-        if( '' == trim($flake_height) ){ $flake_height = '100px';}
+        if( '' == trim($flake_width) ){ $flake_width = '100';}
+        if( '' == trim($flake_height) ){ $flake_height = 'auto';}
         if( '0' == (int)($flake_speed) ){ $flake_speed = 20;}
         if( '0' == (int)($flake_frequency) ){ $flake_frequency = 1;}
-               
+        
+		$flake_active_page = (int)$flake_active_page;
+		
+		//make width integer
+		$flake_width = intval($flake_width);
+		       
         $flake_table = $wpdb->prefix.'spc_flakes';
         $data = array( 
                         'flake_text'=>esc_sql( sanitize_text_field($flake_text)), 
@@ -407,6 +440,7 @@ class SpcSampleData extends SnapycodeFlake
                         'flake_show_enable'=> esc_sql( sanitize_text_field($flake_show_enable) ), 
                         'flake_selector'=> esc_sql( sanitize_text_field($flake_selector) ),
                         'flake_active_area'=> esc_sql( sanitize_text_field($flake_active_area) ),
+						'flake_active_page'=> esc_sql( sanitize_text_field($flake_active_page) ),
                         'flake_mode'=> esc_sql( sanitize_text_field($flake_mode) ),
                         'flake_link_enable'=> esc_sql( sanitize_text_field($flake_link_enable) ),
                         'flake_music_enable'=> esc_sql( sanitize_text_field($flake_music_enable) ),
@@ -419,7 +453,7 @@ class SpcSampleData extends SnapycodeFlake
                         'flake_height'=> esc_sql( sanitize_text_field($flake_height)), 
                         'flake_color'=> esc_sql( sanitize_text_field($flake_color)) 
                     );
-        $format = array( '%s','%s','%s','%s', '%s','%s','%s', '%s','%s','%s', '%s','%s','%s', '%s', '%s', '%s', '%s' );
+        $format = array( '%s','%s','%s','%s', '%s','%s','%s', '%s','%s','%s', '%s','%s','%s', '%s', '%s', '%s', '%s', '%s' );
         
         //var_dump($data); exit;
         

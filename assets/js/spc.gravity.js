@@ -139,18 +139,42 @@
 						$head.append('<style type="text/css">\n' + windCss + '\n</style>');
 					}
 					
+					var browser_width = jQuery(window).width();
+					
 					for($container = $(this), i=1; i<=options.totalApples; i++ )
 					{
 						
 						if(options.active_area =='Narrow Left'){
 							left = 3;
 						}else if(options.active_area =='Narrow Right'){
-							left = 88;
+							left = (browser_width-parseInt(options.width));
 						}else{
-							left = random(0, 90);
+							left = random(0, (browser_width-parseInt(options.width)));
 						}
 						
-						style += 'left:'+left+'%; ';
+						if( left <= 0 ){
+							left = 3;	
+						}
+						
+						style += 'left:'+left+'px; ';
+						
+						//res
+						var skin_width =  parseInt(options.width);
+						var skin_height = parseInt(options.height);
+																								
+						if( skin_width >= browser_width )
+						{
+							//style += 'width:90%; ';
+							//skin_height = 'auto';
+						}
+						
+						skin_width = skin_width+'px';
+						if(skin_height==NaN)
+						{
+							skin_height = 'auto';
+						}else{
+							skin_height = skin_height+'px';
+						}
 						
 						
 						if(options.textMode == true )
@@ -158,18 +182,18 @@
 
 							if(options.appleLink)
 							{
-								$apple = '<div class="spc-gravity gtext"  style="'+ style +'"><span style="font-size:'+options.width+'; color:'+options.color+';" class="gt'+classDope+'"><a target="_blank" style="font-size:'+options.width+'; color:'+options.color+';" href="'+ options.appleLink +'">'+ apple +'</a></span></div>';
+								$apple = '<div class="spc-gravity gtext"  style="'+ style +'"><span style="font-size:'+options.width+'; color:'+options.color+';" class="gt'+classDope+'"><a target="_blank" style="font-size:'+skin_width+'; color:'+options.color+';" href="'+ options.appleLink +'">'+ apple +'</a></span></div>';
 							}else{
-								$apple = '<div class="spc-gravity gtext"  style="'+ style +'"><span style="font-size:'+options.width+'; color:'+options.color+';" class="gt'+classDope+'">'+ apple +'</span></div>';
+								$apple = '<div class="spc-gravity gtext"  style="'+ style +'"><span style="font-size:'+skin_width+'; color:'+options.color+';" class="gt'+classDope+'">'+ apple +'</span></div>';
 							}
 						 
 						}else{
 
 							if(options.appleLink)
 							{
-								$apple = '<div class="spc-gravity gimage"  style="'+ style +'"><span class="gi'+classDope+'" ><a target="_blank" href="'+ options.appleLink +'"><img style="opacity:'+options.opacity+';width:'+ options.width +';height:'+ options.height + '"  src="' + apple + '" class="click-media" /></a></span></div>';
+								$apple = '<div class="spc-gravity gimage"  style="'+ style +'"><span class="gi'+classDope+'" ><a target="_blank" href="'+ options.appleLink +'"><img style="opacity:'+options.opacity+';width:'+ skin_width +';height:'+ skin_height + ';"  src="' + apple + '" class="click-media" /></a></span></div>';
 							}else{
-								$apple = '<div class="spc-gravity gimage"  style="'+ style +'"><span class="gi'+classDope+'"><img style="opacity:'+options.opacity+';" style="opacity:'+options.opacity+';width:'+ options.width +';height:'+ options.height + '"  src="' + apple + '" class="click-media"/></span></div>';
+								$apple = '<div class="spc-gravity gimage"  style="'+ style +'"><span class="gi'+classDope+'"><img  style="opacity:'+options.opacity+';width:'+ skin_width +';height:'+ skin_height + ';"  src="' + apple + '" class="click-media"/></span></div>';
 							}
 						}
 						

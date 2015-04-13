@@ -478,60 +478,68 @@ class SnapycodeFlake {
 
 		//if no flake found return.
 		if(count($rows) <= 0 ){ return false; exit; }
-
+		
+		//Get current page/post id
+		$pid = get_the_ID();
+		$is_page = (is_page($pid ));
+		$is_single = (is_single($pid));
+		
 		$script = '';
 
 		foreach($rows as $row)
-
 		{
-
-			$script .= 'jQuery("'.$row->flake_selector.'").spcGravity({';	
-
-			if($row->flake_mode == 'image')
-
-			{
-
-				$script .= "apples:['".$row->flake_image."'],";	
-
-			}else{
-
-				$script .= "apples:['".$row->flake_text."'],textMode:true,";	
-
-			}
-
-			$script .= "totalApples: ".$row->flake_num.",";
-
-			if($row->flake_direction == 'dwn')
-
-			{
-
-				$script .= "wind: false,";
-
-			}else{
-
-				$script .= "wind: '".$row->flake_direction."',";
-
-			}
 			
-			$script .= "active_area: '".$row->flake_active_area."',";
-			$script .= "opacity: ".$row->flake_opacity.",";
-
-			if($row->flake_link_enable == '1')
-
-			{
-
-				$script .= "appleLink: '".$row->flake_link."',";
-
+			if( $row->flake_active_page == '0' || ($row->flake_active_page == $pid && ($is_page == true || $is_single==true)) ){
+			
+				$script .= 'jQuery("'.$row->flake_selector.'").spcGravity({';	
+	
+				if($row->flake_mode == 'image')
+	
+				{
+	
+					$script .= "apples:['".$row->flake_image."'],";	
+	
+				}else{
+	
+					$script .= "apples:['".$row->flake_text."'],textMode:true,";	
+	
+				}
+	
+				$script .= "totalApples: ".$row->flake_num.",";
+	
+				if($row->flake_direction == 'dwn')
+	
+				{
+	
+					$script .= "wind: false,";
+	
+				}else{
+	
+					$script .= "wind: '".$row->flake_direction."',";
+	
+				}
+				
+				$script .= "active_area: '".$row->flake_active_area."',";
+				$script .= "opacity: ".$row->flake_opacity.",";
+	
+				if($row->flake_link_enable == '1')
+	
+				{
+	
+					$script .= "appleLink: '".$row->flake_link."',";
+	
+				}
+	
+				$script .= "g: '".$row->flake_speed."',";
+				$script .= "frequency: '".$row->flake_frequency."',";
+	
+				$script .= "width: '".$row->flake_width."',";
+	
+				$script .= "height: '".$row->flake_height."',";
+	
+				$script .= "color: '".$row->flake_color."'});";
+			
 			}
-
-			$script .= "g: '".$row->flake_speed."',";
-			$script .= "frequency: '".$row->flake_frequency."',";
-
-			$script .= "width: '".$row->flake_width."',";
-
-			$script .= "height: '".$row->flake_height."',";
-
-			$script .= "color: '".$row->flake_color."'});";
 
 		}
 

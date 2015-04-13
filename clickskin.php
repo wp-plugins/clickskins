@@ -8,7 +8,7 @@ Plugin URI: http://reavey.com
 
 description: Clicks Skin Ads – website enhancements and an alternatve to banner ads
 
-Version: 1.0
+Version: 1.0.1
 
 Author: reavey
 

@@ -47,6 +47,7 @@ function spc_ghostskin_install() {
 				  `flake_link` varchar(255) NOT NULL,
 				  `flake_selector` varchar(100) NOT NULL,
 				  `flake_active_area` varchar(255) NOT NULL,
+				  `flake_active_page` varchar(255) NOT NULL,
 				  `flake_mode` varchar(10) NOT NULL,
 				  `flake_link_enable` int(11) NOT NULL,
 				  `flake_music_enable` int(11) NOT NULL,
@@ -70,7 +71,7 @@ function spc_ghostskin_install() {
 }
 
 function spc_ghostskin_deactivate() {
-	/*global $wpdb, $snapycode_flake;
+	global $wpdb;
 	
 	//settings table
 	$f_table = $wpdb->prefix.'spc_flakes';
@@ -78,5 +79,5 @@ function spc_ghostskin_deactivate() {
 	//Drop Settings table SQL
 	$drop_settings_table_sql = "DROP TABLE IF EXISTS `{$f_table}`";
 	
-	$wpdb->query($drop_settings_table_sql);*/
+	$wpdb->query($drop_settings_table_sql);
 }
